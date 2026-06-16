@@ -1,20 +1,114 @@
-<input id="name" placeholder="Navn" />
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8" />
+<title>Oktober plan</title>
 
-<label>
-  <input type="checkbox" id="w2"> Uge 2
-</label>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background: #f6f7fb;
+    margin: 0;
+    padding: 40px;
+  }
 
-<label>
-  <input type="checkbox" id="w3"> Uge 3
-</label>
+  .container {
+    max-width: 600px;
+    margin: auto;
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+  }
 
-<label>
-  <input type="checkbox" id="w4"> Uge 4
-</label>
+  h1 {
+    margin-top: 0;
+  }
 
-<button onclick="submit()">Tilføj</button>
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+  }
+
+  .weeks {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 15px;
+  }
+
+  .week {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #f3f4f6;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 8px;
+    background: #4f46e5;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+  }
+
+  button:hover {
+    background: #4338ca;
+  }
+
+  .entry {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+  }
+
+  .entry b {
+    display: block;
+    margin-bottom: 5px;
+  }
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+<h1>Hvornår kan du?</h1>
+<p>Vælg hvilke uger i oktober du kan</p>
+
+<input id="name" type="text" placeholder="Dit navn..." />
+
+<div class="weeks">
+  <label class="week">
+    <input type="checkbox" id="w2">
+    Uge 2 i oktober
+  </label>
+
+  <label class="week">
+    <input type="checkbox" id="w3">
+    Uge 3 i oktober
+  </label>
+
+  <label class="week">
+    <input type="checkbox" id="w4">
+    Uge 4 i oktober
+  </label>
+</div>
+
+<button onclick="submit()">Tilføj svar</button>
+
+<hr style="margin:20px 0">
 
 <div id="list"></div>
+
+</div>
 
 <script>
 const API = "https://script.google.com/macros/s/AKfycbye9nK43UVd1md0d2chOW0sqJr9Dq9-FqvbG489Fozv7EkQPY9fTJeJvT1I09cBVkWw/exec";
@@ -25,20 +119,18 @@ async function load() {
 
   document.getElementById("list").innerHTML =
     data.map(p => `
-      <div>
-        <b>${p.name}</b> —
-        Uge2: ${p.w2 ? "✅" : "⬜"} |
-        Uge3: ${p.w3 ? "✅" : "⬜"} |
-        Uge4: ${p.w4 ? "✅" : "⬜"}
+      <div class="entry">
+        <b>${p.name}</b>
+        Uge 2: ${p.w2 ? "✅" : "⬜"} |
+        Uge 3: ${p.w3 ? "✅" : "⬜"} |
+        Uge 4: ${p.w4 ? "✅" : "⬜"}
       </div>
     `).join("");
 }
 
 async function submit() {
-  const name = document.getElementById("name").value;
-
   const body = {
-    name,
+    name: document.getElementById("name").value,
     w2: document.getElementById("w2").checked,
     w3: document.getElementById("w3").checked,
     w4: document.getElementById("w4").checked
@@ -54,3 +146,6 @@ async function submit() {
 
 load();
 </script>
+
+</body>
+</html>
