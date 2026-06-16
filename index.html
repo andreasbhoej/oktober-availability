@@ -1,24 +1,23 @@
-<!DOCTYPE html>
-<html lang="da">
-<head>
-  <meta charset="UTF-8">
-  <title>Oktober plan</title>
-  <style>
-    body { font-family: Arial; max-width: 600px; margin: 40px auto; }
-    .row { display:flex; justify-content:space-between; padding:10px; border-bottom:1px solid #eee; }
-  </style>
-</head>
-<body>
+<input id="name" placeholder="Navn" />
 
-<h1>Hvornår kan du i oktober?</h1>
+<label>
+  <input type="checkbox" id="w2"> Uge 2
+</label>
 
-<input id="name" placeholder="Skriv navn" />
+<label>
+  <input type="checkbox" id="w3"> Uge 3
+</label>
+
+<label>
+  <input type="checkbox" id="w4"> Uge 4
+</label>
+
 <button onclick="submit()">Tilføj</button>
 
 <div id="list"></div>
 
 <script>
-const API = "INDSÆT_DIN_APPS_SCRIPT_URL_HER";
+const API = "https://script.google.com/macros/s/AKfycbye9nK43UVd1md0d2chOW0sqJr9Dq9-FqvbG489Fozv7EkQPY9fTJeJvT1I09cBVkWw/exec";
 
 async function load() {
   const res = await fetch(API);
@@ -26,13 +25,11 @@ async function load() {
 
   document.getElementById("list").innerHTML =
     data.map(p => `
-      <div class="row">
-        <div>${p.name}</div>
-        <div>
-          ${p.w2 ? "Uge 2 ✅" : "Uge 2 ⬜"}
-          ${p.w3 ? "Uge 3 ✅" : "Uge 3 ⬜"}
-          ${p.w4 ? "Uge 4 ✅" : "Uge 4 ⬜"}
-        </div>
+      <div>
+        <b>${p.name}</b> —
+        Uge2: ${p.w2 ? "✅" : "⬜"} |
+        Uge3: ${p.w3 ? "✅" : "⬜"} |
+        Uge4: ${p.w4 ? "✅" : "⬜"}
       </div>
     `).join("");
 }
@@ -40,14 +37,16 @@ async function load() {
 async function submit() {
   const name = document.getElementById("name").value;
 
+  const body = {
+    name,
+    w2: document.getElementById("w2").checked,
+    w3: document.getElementById("w3").checked,
+    w4: document.getElementById("w4").checked
+  };
+
   await fetch(API, {
     method: "POST",
-    body: JSON.stringify({
-      name,
-      w2: false,
-      w3: false,
-      w4: false
-    })
+    body: JSON.stringify(body)
   });
 
   load();
@@ -55,6 +54,3 @@ async function submit() {
 
 load();
 </script>
-
-</body>
-</html>
