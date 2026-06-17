@@ -2,46 +2,47 @@
 <html lang="da">
 <head>
 <meta charset="UTF-8" />
-<title>Dune Summerhouse Tournament</title>
+<title>Apache Band Tour Planner</title>
 
 <style>
   body {
     margin: 0;
     padding: 40px;
     font-family: Arial, sans-serif;
-    background: radial-gradient(circle at top, #1b1b1b, #0b0b0b);
-    color: #e7d3a1;
+    background: linear-gradient(180deg, #1b120b, #0b0705);
+    color: #f2d3a0;
   }
 
   .container {
     max-width: 700px;
     margin: auto;
-    background: rgba(20, 18, 15, 0.9);
-    border: 1px solid #c2a46a;
+    background: rgba(20, 12, 8, 0.92);
+    border: 1px solid #b87a3b;
     border-radius: 14px;
     padding: 25px;
-    box-shadow: 0 0 40px rgba(194,164,106,0.15);
+    box-shadow: 0 0 35px rgba(184,122,59,0.2);
   }
 
   h1 {
     margin-top: 0;
     font-size: 28px;
+    color: #ffd3a1;
     letter-spacing: 1px;
-    color: #f3e2b3;
   }
 
   .subtitle {
-    color: #c2a46a;
+    color: #c48a4a;
     margin-bottom: 20px;
+    font-style: italic;
   }
 
   input[type="text"] {
     width: 100%;
     padding: 10px;
     border-radius: 8px;
-    border: 1px solid #c2a46a;
-    background: #0f0e0c;
-    color: #f3e2b3;
+    border: 1px solid #b87a3b;
+    background: #120b07;
+    color: #ffd3a1;
     margin-bottom: 15px;
   }
 
@@ -58,8 +59,8 @@
     gap: 10px;
     padding: 12px;
     border-radius: 10px;
-    background: rgba(194,164,106,0.08);
-    border: 1px solid rgba(194,164,106,0.3);
+    background: rgba(184,122,59,0.08);
+    border: 1px solid rgba(184,122,59,0.35);
   }
 
   button {
@@ -67,8 +68,8 @@
     padding: 12px;
     border: none;
     border-radius: 10px;
-    background: linear-gradient(90deg, #c2a46a, #8a6b2d);
-    color: #0b0b0b;
+    background: linear-gradient(90deg, #b87a3b, #8b4f1d);
+    color: #120b07;
     font-weight: bold;
     cursor: pointer;
     letter-spacing: 1px;
@@ -80,16 +81,18 @@
 
   .entry {
     padding: 12px;
-    border-bottom: 1px solid rgba(194,164,106,0.2);
-  }
-
-  .entry b {
-    color: #f3e2b3;
+    border-bottom: 1px solid rgba(184,122,59,0.25);
   }
 
   .tag {
     font-size: 12px;
-    color: #c2a46a;
+    color: #c48a4a;
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
   }
 </style>
 
@@ -98,33 +101,33 @@
 
 <div class="container">
 
-<h1>🏜️ Dune Tournament — Summerhouse Trial</h1>
-<div class="subtitle">“The spice must be scheduled.”</div>
+<h1>🎸 Apache Band — Tour Availability</h1>
+<div class="subtitle">“No road is too long for the band.”</div>
 
-<input id="name" type="text" placeholder="Navn på kriger..." />
+<input id="name" type="text" placeholder="Band member / crew name..." />
 
 <div class="weeks">
 
   <label class="week">
     <input type="checkbox" id="w42">
-    Uge 42 — Arrakis Awakening
+    Uge 42 — Desert Rehearsal
   </label>
 
   <label class="week">
     <input type="checkbox" id="w43">
-    Uge 43 — Spice Rising
+    Uge 43 — Road Gig Run
   </label>
 
   <label class="week">
     <input type="checkbox" id="w44">
-    Uge 44 — The Final Sandstorm
+    Uge 44 — Final Showdown
   </label>
 
 </div>
 
-<button onclick="submit()">Register participation</button>
+<button onclick="submit()">Add to tour roster</button>
 
-<hr style="margin:20px 0; border-color:#c2a46a33">
+<hr style="margin:20px 0; border-color:#b87a3b33">
 
 <div id="list"></div>
 
@@ -142,9 +145,9 @@ async function load() {
       <div class="entry">
         <b>${p.name}</b><br>
         <span class="tag">
-          U42: ${p.w42 ? "✔ spice ready" : "—"} |
-          U43: ${p.w43 ? "✔ spice ready" : "—"} |
-          U44: ${p.w44 ? "✔ spice ready" : "—"}
+          U42: ${p.w42 ? "✔ on tour" : "—"} |
+          U43: ${p.w43 ? "✔ on tour" : "—"} |
+          U44: ${p.w44 ? "✔ on tour" : "—"}
         </span>
       </div>
     `).join("");
